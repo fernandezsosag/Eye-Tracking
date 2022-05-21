@@ -191,7 +191,7 @@ with mp_face_mesh.FaceMesh(
                             mov_x=xi-x3*Gxd
                             mouse.move(mov_x,mov_y)
                 elif (y3<-1 and x3>1):
-                    cv.putText(frame,"ABAJO E IZQUIERDA",(50,200),font,2,(0,0,255),3)
+                    cv.putText(frame,"ABAJO IZQUIERDA",(50,200),font,2,(0,0,255),3)
                     if(mov_y<pyautogui.size()[1] and mov_x>0):
                         if((y32-2<=y3<y32+2) and (x32-2<=x3<x32+2)):
                             mov_x,mov_y=mouse.get_position()
@@ -248,6 +248,7 @@ with mp_face_mesh.FaceMesh(
             cv.putText(frame,str(y3),(150,300),font,2,(0,0,255),3)
             y32=y3
             x32=x3
+
 
         cv.imshow('img', frame)
         key = cv.waitKey(1)
