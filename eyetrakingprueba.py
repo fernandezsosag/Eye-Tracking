@@ -173,7 +173,7 @@ with mp_face_mesh.FaceMesh(
                 if (y3>1 and x3>1):
                     cv.putText(frame,"ARRIBA e IZQUIERDA",(50,200),font,2,(0,0,255),3)
                     if(mov_y>0 and mov_x>0):
-                        if((y32<=y3<y32+2) and (x32<=x3<x32+2)):
+                        if((y32<=y3<y32+1) and (x32<=x3<x32+1)):
                             mov_x,mov_y=mouse.get_position()
                             mouse.move(mov_x,mov_y)
                         else:
@@ -183,7 +183,7 @@ with mp_face_mesh.FaceMesh(
                 elif (y3>1 and x3<-1) :
                     cv.putText(frame,"ARRIBA Y DERECHA",(50,200),font,2,(0,0,255),3)
                     if(mov_y>0 and mov_x<pyautogui.size()[0]):
-                        if((y32<=y3<y32+2) and (x32<=x3<x32+2)):
+                        if((y32<=y3<y32+1) and (x32<=x3<x32+1)):
                             mov_x,mov_y=mouse.get_position()
                             mouse.move(mov_x,mov_y)
                         else:
@@ -193,7 +193,7 @@ with mp_face_mesh.FaceMesh(
                 elif (y3<-1 and x3>1):
                     cv.putText(frame,"ABAJO IZQUIERDA",(50,200),font,2,(0,0,255),3)
                     if(mov_y<pyautogui.size()[1] and mov_x>0):
-                        if((y32<=y3<y32+2) and (x32<=x3<x32+2)):
+                        if((y32<=y3<y32+1) and (x32<=x3<x32+1)):
                             mov_x,mov_y=mouse.get_position()
                             mouse.move( mov_x,mov_y)
                         else:
@@ -203,7 +203,7 @@ with mp_face_mesh.FaceMesh(
                 elif (y3<-1 and x3<-1) :
                     cv.putText(frame,"ABAJO Y derecha",(50,200),font,2,(0,0,255),3)
                     if(mov_y<pyautogui.size()[1] and mov_x<pyautogui.size()[0]):
-                        if((y32<=y3<y32+2) and (x32<=x3<x32+2)):
+                        if((y32<=y3<y32+1) and (x32<=x3<x32+1)):
                             mov_x,mov_y=mouse.get_position()
                             mouse.move( mov_x,mov_y)
                         else:
@@ -212,7 +212,7 @@ with mp_face_mesh.FaceMesh(
                             mouse.move(mov_x,mov_y)
                 else :
                     cv.putText(frame,"CENTRO",(50,200),font,2,(0,0,255),3)
-                    if((y32<=y3<y32+2) and (x32<=x3<x32+2)):
+                    if((y32<=y3<y32+1) and (x32<=x3<x32+1)):
                         mov_x,mov_y=mouse.get_position()
                         mouse.move( mov_x,mov_y)
                     else:
