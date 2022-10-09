@@ -12,7 +12,7 @@ import pyautogui
 def calibracion():
     esc=0
     circle=((pyautogui.size()[0]//2),(pyautogui.size()[1]//2))
-    palabra="Mire el punto central y PULSE p"
+    palabra="Mire hacia la camara y PULSE p"
     font = cv.FONT_HERSHEY_PLAIN
     mp_face_mesh = mp.solutions.face_mesh
     cap = cv.VideoCapture(0)
@@ -53,10 +53,10 @@ def calibracion():
                 elif keyi ==ord('e'):
                     yarrc=mesh_pointsi[468][1]
                     palabra="MIRE ABAJO DE LA PANTALLA Y APRETAR r"
-                    circle=((pyautogui.size()[0]//2),pyautogui.size()[1]-10)
+                    circle=((pyautogui.size()[0]//2),pyautogui.size()[1]-40)
                 elif keyi ==ord('r'):
                     yabac=mesh_pointsi[468][1]
-                    esc=1
+                    esc=1                       #condicion para salir del bucle
     return xic,yic,xizqc,xderc,yarrc,yabac
 
 font = cv.FONT_HERSHEY_PLAIN
@@ -95,8 +95,9 @@ with mp_face_mesh.FaceMesh(
         ret, frame = cap.read()
         if not ret:
             break
+        #Acondicionamiento de la imagen
         frame = cv.flip(frame, 1)  #doy vuelta la imagen para que este alineada a la persona
-        frame = cv.resize(frame, (1920, 1080))
+        frame = cv.resize(frame, (pyautogui.size()[0], pyautogui.size()[1]))
         rgb_frame = cv.cvtColor(frame, cv.COLOR_BGR2RGB)
         img_h, img_w = frame.shape[:2]
         results = face_mesh.process(rgb_frame)
