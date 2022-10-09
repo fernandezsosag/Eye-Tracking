@@ -75,8 +75,7 @@ COUNTERD =0
 TOTALD= 0
 x32=0
 y32=0
-rangoy=0.5
-rangox=0.5 
+ 
 cap = cv.VideoCapture(0)
 
 pyautogui.moveTo(pyautogui.size()[0]//2,pyautogui.size()[1]//2,duration=0.25)  #centro de la pantalla
@@ -97,7 +96,7 @@ with mp_face_mesh.FaceMesh(
         if not ret:
             break
         frame = cv.flip(frame, 1)  #doy vuelta la imagen para que este alineada a la persona
-        frame = cv.resize(frame, (pyautogui.size()[0], pyautogui.size()[1]))
+        frame = cv.resize(frame, (1920, 1080))
         rgb_frame = cv.cvtColor(frame, cv.COLOR_BGR2RGB)
         img_h, img_w = frame.shape[:2]
         results = face_mesh.process(rgb_frame)
@@ -137,8 +136,23 @@ with mp_face_mesh.FaceMesh(
             if (yi-yarr!=0):
                 Gyar=centroy//(yi-yarr)
             
-
-
+            x1p=0
+            
+            #saco un promedio de la ubicacion del punto central del ojo
+            
+            x1=mesh_points[468][0]
+            x1p=x1
+            
+            
+            
+            y1p=0
+            
+            y1=mesh_points[468][1]
+            y1p=y1
+            
+            
+            y3=yi-y1p
+            x3=xi-x1p
             #aca comienza el programa, y comienza analizando la apertura de los ojos, dependeiendo de ese dato toma una accion
             #comparo ear con la referencia
 
@@ -155,92 +169,51 @@ with mp_face_mesh.FaceMesh(
             else: #SI ENTRO ACA TENGO LOS DOS OJOS ABIERTOS, HAGO EL SEGUIMIENTO
             
                 #y2=float(mesh_points[133][1]) #comparo con la relacion entre el bodr cerca de la nariz y el centro del ojo
-                x1p=mesh_points[468][0]
-                y1p=mesh_points[468][1]
-            
-            
-                y3=yi-y1p
-                x3=xi-x1p
-                if (y3>rangoy and x3>rangox):
+
+                if (y3>0.5 and x3>0.5):
                     cv.putText(frame,"ARRIBA e IZQUIERDA",(50,200),font,2,(0,0,255),3)
                     if(mov_y>0 and mov_x>0):
-                        if((y32-rangoy<=y3<y32+rangoy) and (x32-rangox<=x3<x32+rangox)):
-                            #mov_x,mov_y=mouse.get_position()
+                        if((y32-1<=y3<y32+0.5) and (x32-1<=x3<x32+0.5)):
+                            mov_x,mov_y=mouse.get_position()
                             mouse.move(mov_x,mov_y)
                         else:
                             mov_y=yi-y3*Gyar
                             mov_x=xi-x3*Gxi
                             mouse.move(mov_x,mov_y)
-                elif (y3>rangoy and x3<-rangox) :
+                elif (y3>0.5 and x3<-0.5) :
                     cv.putText(frame,"ARRIBA Y DERECHA",(50,200),font,2,(0,0,255),3)
                     if(mov_y>0 and mov_x<pyautogui.size()[0]):
-                        if((y32-rangoy<=y3<y32+rangoy) and (x32-rangox<=x3<x32+rangox)):
-                            #mov_x,mov_y=mouse.get_position()
+                        if((y32-1<=y3<y32+0.5) and (x32-1<=x3<x32+0.5)):
+                            mov_x,mov_y=mouse.get_position()
                             mouse.move(mov_x,mov_y)
                         else:
-                            mov_y=yi-y3*Gyar
+                            mov_y=yi-y3*Gya
                             mov_x=xi-x3*Gxd
                             mouse.move(mov_x,mov_y)
-                elif (y3<-rangoy and x3>rangox):
+                elif (y3<-0.5 and x3>0.5):
                     cv.putText(frame,"ABAJO IZQUIERDA",(50,200),font,2,(0,0,255),3)
                     if(mov_y<pyautogui.size()[1] and mov_x>0):
-                        if((y32-rangoy<=y3<y32+rangoy) and (x32-rangox<=x3<x32+rangox)):
-                            #mov_x,mov_y=mouse.get_position()
+                        if((y32-1<=y3<y32+0.5) and (x32-1<=x3<x32+0.5)):
+                            mov_x,mov_y=mouse.get_position()
                             mouse.move( mov_x,mov_y)
                         else:
                             mov_y=yi-y3*Gya
                             mov_x=xi-x3*Gxi
                             mouse.move(mov_x,mov_y)
-                elif (y3<-rangoy and x3<-rangox) :
+                elif (y3<-0.5 and x3<-0.5) :
                     cv.putText(frame,"ABAJO Y derecha",(50,200),font,2,(0,0,255),3)
                     if(mov_y<pyautogui.size()[1] and mov_x<pyautogui.size()[0]):
-                        if((y32-rangoy<=y3<y32+rangoy) and (x32-rangox<=x3<x32+rangox)):
-                            #mov_x,mov_y=mouse.get_position()
+                        if((y32-1<=y3<y32+0.5) and (x32-1<=x3<x32+0.5)):
+                            mov_x,mov_y=mouse.get_position()
                             mouse.move( mov_x,mov_y)
                         else:
                             mov_y=yi-y3*Gya
                             mov_x=xi-x3*Gxd
                             mouse.move(mov_x,mov_y)
-                elif (y3>rangoy) :
-                    cv.putText(frame,"ARRIBA",(50,200),font,2,(0,0,255),3)
-                    if(mov_y>0):
-                        if((y32-rangoy<=y3<y32+rangoy)):
-                            #mov_x,mov_y=mouse.get_position()
-                            mouse.move(mov_x,mov_y)
-                        else:
-                            mov_y=yi-y3*Gyar
-                            mouse.move(mov_x,mov_y) 
-                elif (y3<-rangoy) :
-                    cv.putText(frame,"ABAJO",(50,200),font,2,(0,0,255),3)
-                    if(mov_y<pyautogui.size()[1]):
-                        if((y32-rangoy<=y3<y32+rangoy)):
-                            #mov_x,mov_y=mouse.get_position()
-                            mouse.move(mov_x,mov_y)
-                        else:
-                            mov_y=yi-y3*Gya
-                            mouse.move(mov_x,mov_y)
-                elif (x3>rangox) :
-                    cv.putText(frame,"IZQUIERDA",(50,200),font,2,(0,0,255),3)
-                    if(mov_x>0):
-                        if((y32-rangoy<=y3<y32+rangoy)):
-                            #mov_x,mov_y=mouse.get_position()
-                            mouse.move(mov_x,mov_y)
-                        else:
-                            mov_x=xi-x3*Gxi
-                            mouse.move(mov_x,mov_y)
-                elif (x3<-rangox) :
-                    cv.putText(frame,"DERECHA",(50,200),font,2,(0,0,255),3)
-                    if(mov_x<pyautogui.size()[0]):
-                        if((x32-rangox<=x3<x32+rangox)):
-                            #mov_x,mov_y=mouse.get_position()
-                            mouse.move(mov_x,mov_y)
-                        else:
-                            mov_x=xi-x3*Gxd
-                            mouse.move(mov_x,mov_y)            
                 else :
                     cv.putText(frame,"CENTRO",(50,200),font,2,(0,0,255),3)
-                    if((y32-rangoy<=y3<y32+rangoy) and (x32-rangox<=x3<x32+rangox)):
-                        #mov_x,mov_y=mouse.get_position()
+                    if((y32-1<=y3<y32+0.5) and (x32-1<=x3<x32+0.5)):
+                        mov_x,mov_y=mouse.get_position()
                         mouse.move( mov_x,mov_y)
                     else:
                         mov_y=yi-y3*Gya
