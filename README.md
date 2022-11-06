@@ -1,5 +1,6 @@
 # Eye-tracking
-codigo para realizar seguimiento ocular y tener un control sobre el mouse
+codigo para realizar seguimiento ocular y tener un control sobre el mouse, 
+Se recomienda agrandar el tamaño del puntero
 # En proceso...
 
 ## Modo 1 
