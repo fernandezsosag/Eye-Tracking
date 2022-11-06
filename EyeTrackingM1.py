@@ -169,7 +169,8 @@ with mp_face_mesh.FaceMesh(
             
             else: #SI ENTRO ACA TENGO LOS DOS OJOS ABIERTOS, HAGO EL SEGUIMIENTO
             
-                
+            #Si quiero realizar el deguimiento pudiendo mover la cabeza, a la funcion mouse.move() se le puede
+            # agregar el parametro duration=0.5 para que la duracion del movimiento sea mas lenta y asi ser mas precisa    
 
                 if (y3>0.5 and x3>0.5):
                     cv.putText(frame,"ARRIBA e IZQUIERDA",(50,200),font,2,(0,0,255),3)
