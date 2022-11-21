@@ -66,8 +66,8 @@ mp_face_mesh = mp.solutions.face_mesh
 #RIGHT_EYE=[ 33, 7, 163, 144, 145, 153, 154, 155, 133, 173, 157, 158, 159, 160, 161 , 246 ]
 #LEFT_IRIS = [474,475, 476, 477]
 #RIGHT_IRIS = [469, 470, 471, 472]
-EYE_AR_THRESH = 0.2  #margen para detectar si esta abierto o cerrado el ojo
-EYE_AR_CONSEC_FRAMES = 3    #cantidad de frames para comparar entre el pesta inoluntario o voluntario
+EYE_AR_THRESH = 0.1  #margen para detectar si esta abierto o cerrado el ojo
+EYE_AR_CONSEC_FRAMES = 5    #cantidad de frames para comparar entre el pesta inoluntario o voluntario
 # contadores para los cierres de ojo izq y derecho
 COUNTERI = 0
 TOTALI = 0
