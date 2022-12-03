@@ -68,6 +68,7 @@ mp_face_mesh = mp.solutions.face_mesh
 #RIGHT_IRIS = [469, 470, 471, 472]
 EYE_AR_THRESH = 0.1  #margen para detectar si esta abierto o cerrado el ojo
 EYE_AR_CONSEC_FRAMES = 5    #cantidad de frames para comparar entre el pesta inoluntario o voluntario
+EYE_AR_CONSEC_FRAMES_FINISH = 5
 # contadores para los cierres de ojo izq y derecho
 COUNTERI = 0
 TOTALI = 0
@@ -161,7 +162,7 @@ with mp_face_mesh.FaceMesh(
 
             if eari<EYE_AR_THRESH:  
                 COUNTERI += 1
-                if COUNTERI >= EYE_AR_CONSEC_FRAMES:    #SI SUPERO LOS FRAMES HAGO CLICK SINO SIGO EL SEGUIMIENTO
+                if  COUNTERI >= EYE_AR_CONSEC_FRAMES :    #SI SUPERO LOS FRAMES HAGO CLICK SINO SIGO EL SEGUIMIENTO
                     TOTALI += 1
                     pyautogui.click(x=mov_x, y=mov_y)  #click en la posicion actual
                     # reseteo el contador de frames
@@ -221,15 +222,13 @@ with mp_face_mesh.FaceMesh(
                         mov_y=yi-y3*Gya
                         mov_x=xi-x3*Gxi
                         mouse.move(mov_x,mov_y)
-            
+            #si cierro el ojo derecho  por unos instantes salgo de la aplicacion
             if eard<EYE_AR_THRESH:
                 COUNTERD += 1
-                if (COUNTERD >= EYE_AR_CONSEC_FRAMES):
+                if COUNTERD >= EYE_AR_CONSEC_FRAMES_FINISH:
                     TOTALD += 1
-                    cv.putText(frame, "STOP", (50, 150), font, 7, (255, 0, 0))
-                    mov_x,mov_y=pyautogui.position()
-                    mouse.move(mov_x,mov_y)
-                    COUNTERD = 0                 
+                    cv.putText(frame, "EXIT", (50, 150), font, 7, (255, 0, 0))
+                    break              
             keyc = cv.waitKey(1)
             if keyc ==ord('c'):
                 while True:
